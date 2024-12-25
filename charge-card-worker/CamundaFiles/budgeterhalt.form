@@ -1,0 +1,26 @@
+{
+  "components": [
+    {
+      "label": "Budgeterhalt bestätigen",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1bfura7",
+        "columns": null
+      },
+      "id": "Field_12ccz3c",
+      "key": "erhalten",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "budgeterhalt",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 17
+}

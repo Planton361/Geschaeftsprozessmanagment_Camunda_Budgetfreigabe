@@ -1,0 +1,70 @@
+{
+  "components": [
+    {
+      "label": "Antragsteller",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1bskl0x",
+        "columns": null
+      },
+      "id": "Field_0qob65e",
+      "key": "antragsteller",
+      "readonly": true
+    },
+    {
+      "label": "Projektname",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0byx186",
+        "columns": null
+      },
+      "id": "Field_09gv323",
+      "key": "projectName",
+      "readonly": true
+    },
+    {
+      "label": "Betrag",
+      "type": "number",
+      "layout": {
+        "row": "Row_02c9fux",
+        "columns": null
+      },
+      "id": "Field_1gii1o8",
+      "key": "budgetAmount",
+      "readonly": true
+    },
+    {
+      "label": "Begruendung",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_1vjqr6k",
+        "columns": null
+      },
+      "id": "Field_1812b4s",
+      "key": "begruendung",
+      "readonly": true
+    },
+    {
+      "label": "Antrag genehmigen",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_07bjf74",
+        "columns": null
+      },
+      "id": "Field_0s3bksd",
+      "key": "freigabeGF",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "freigabe-durch-gf",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 17
+}

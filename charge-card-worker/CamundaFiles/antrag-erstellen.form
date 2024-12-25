@@ -1,0 +1,72 @@
+{
+  "components": [
+    {
+      "label": "Antragsteller",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1ed9ktk",
+        "columns": null
+      },
+      "id": "Field_1uvb050",
+      "key": "antragsteller"
+    },
+    {
+      "label": "Projectname",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0iwhfu8",
+        "columns": null
+      },
+      "id": "Field_1k84hu7",
+      "key": "projectName",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Betrag",
+      "type": "number",
+      "layout": {
+        "row": "Row_0vrb0kr",
+        "columns": null
+      },
+      "id": "Field_0qf0k5x",
+      "key": "budgetAmount",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Begründung",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_1ugbmum",
+        "columns": null
+      },
+      "id": "Field_0dw53zx",
+      "key": "begruendung",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Antragsteller Mail",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0agglj6",
+        "columns": null
+      },
+      "id": "Field_1f8tccm",
+      "key": "antragstellerEmail"
+    }
+  ],
+  "type": "default",
+  "id": "antrag-erstellen",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.29.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 17
+}
