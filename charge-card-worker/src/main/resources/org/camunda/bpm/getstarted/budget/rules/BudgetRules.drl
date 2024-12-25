@@ -1,0 +1,43 @@
+package org.camunda.bpm.getstarted.budget.rules;
+
+import org.camunda.bpm.getstarted.budget.BudgetCheck;
+
+// Globals
+global Integer LOW_BUDGET_THRESHOLD;
+global Integer MEDIUM_BUDGET_THRESHOLD;
+global org.slf4j.Logger logger;
+
+// Rule to validate thresholds
+rule "Validate Budget Thresholds"
+    when
+        eval(LOW_BUDGET_THRESHOLD > 0 && MEDIUM_BUDGET_THRESHOLD > LOW_BUDGET_THRESHOLD)
+    then
+        logger.info("Thresholds validated successfully.");
+end
+
+rule "Low Budget Approval"
+    when
+        $budget : BudgetCheck(amount < LOW_BUDGET_THRESHOLD)
+    then
+        $budget.setDecision("Approved for automatic processing");
+        logger.info("Rule 'Low Budget Approval' fired for amount: " + $budget.getAmount());
+end
+
+rule "Medium Budget Review"
+    when
+        $budget : BudgetCheck(amount >= LOW_BUDGET_THRESHOLD && amount < MEDIUM_BUDGET_THRESHOLD)
+    then
+        $budget.setDecision("Requires Manager Approval");
+        logger.info("Rule 'Medium Budget Review' fired for amount: " + $budget.getAmount());
+end
+
+rule "High Budget Review"
+    when
+        $budget : BudgetCheck(amount >= MEDIUM_BUDGET_THRESHOLD)
+    then
+        $budget.setDecision("Requires Executive Approval");
+        logger.info("Rule 'High Budget Review' fired for amount: " + $budget.getAmount());
+end
+
+
+
