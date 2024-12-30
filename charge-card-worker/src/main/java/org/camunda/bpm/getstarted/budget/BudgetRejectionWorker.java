@@ -27,8 +27,7 @@ public class BudgetRejectionWorker {
         String fromEmail = System.getenv("FROM_EMAIL");
 
 
-        // Zieladresse für den Test
-        String toEmail = "antonplatonov93@gmail.com"; // <--- Stellen Sie sicher, dass dies definiert ist.
+
 
         if (smtpHost == null || smtpPort == null || smtpUser == null || smtpPass == null || fromEmail == null) {
             LOGGER.error("SMTP-Konfiguration ist nicht vollständig. Bitte setze alle notwendigen Umgebungsvariablen.");
