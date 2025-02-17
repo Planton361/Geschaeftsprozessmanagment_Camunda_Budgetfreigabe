@@ -20,11 +20,11 @@ public class BudgetRejectionWorker {
 
     public static void main(String[] args) {
         // SMTP-Konfiguration über Umgebungsvariablen (sicherer)
-        String smtpHost = System.getenv("SMTP_HOST") != null ? System.getenv("SMTP_HOST") : "smtp.gmail.com";
-        String smtpPort = System.getenv("SMTP_PORT") != null ? System.getenv("SMTP_PORT") : "587";
-        String smtpUser = System.getenv("SMTP_USER");
-        String smtpPass = System.getenv("SMTP_PASS");
-        String fromEmail = System.getenv("FROM_EMAIL");
+        String smtpHost = "smtp.gmail.com";
+        String smtpPort = "587";
+        String smtpUser = "antonplatonov93@gmail.com";
+        String smtpPass = "kubu ramp evpx imwv";
+        String fromEmail = "antonplatonov93@gmail.com";
 
 
 
@@ -46,16 +46,18 @@ public class BudgetRejectionWorker {
                 .lockDuration(5000) // Lock-Dauer in ms
                 .handler((ExternalTask externalTask, ExternalTaskService externalTaskService) -> {
                     // Prozessvariablen auslesen
-                    String antragId = externalTask.getVariable("antragId"); // Antrag-ID aus Prozessvariable
+                    String antragId = externalTask.getVariable("antragID"); // Antrag-ID aus Prozessvariable
                     String ablehnungsGrund = externalTask.getVariable("reason"); // Ablehnungsgrund aus Prozessvariable
                     String antragstellerEmail = externalTask.getVariable("antragstellerEmail"); // E-Mail des Antragstellers
                     String subject = "Ihr Budgetantrag wurde abgelehnt"; // Fester Betreff
+                    String antragSteller = externalTask.getVariable("antragsteller");
+                    String projektName = externalTask.getVariable("projectName");
 
                     LOGGER.info("Starte Budget-Ablehnung für Antrag-ID: {} mit Grund: {}", antragId, ablehnungsGrund);
 
                     // E-Mail senden
                     try {
-                        sendRejectionEmail(smtpHost, smtpPort, smtpUser, smtpPass, fromEmail, antragstellerEmail, subject, antragId, ablehnungsGrund);
+                        sendRejectionEmail(smtpHost, smtpPort, smtpUser, smtpPass, fromEmail, antragstellerEmail, subject, antragId, ablehnungsGrund, antragSteller, projektName );
                         LOGGER.info("Ablehnungs-E-Mail erfolgreich an {} gesendet.", antragstellerEmail);
                     } catch (Exception e) {
                         LOGGER.error("Fehler beim Senden der Ablehnungs-E-Mail: {}", e.getMessage());
@@ -77,20 +79,21 @@ public class BudgetRejectionWorker {
     /**
      * Methode zum Senden der Ablehnungs-E-Mail.
      *
-     * @param host      SMTP-Host
-     * @param port      SMTP-Port
-     * @param user      SMTP-Benutzername
-     * @param pass      SMTP-Passwort
-     * @param fromEmail Absender-E-Mail
-     * @param toEmail   Empfänger-E-Mail
-     * @param subject   E-Mail Betreff
-     * @param antragId  Antrag-ID
-     * @param reason    Ablehnungsgrund
+     * @param host          SMTP-Host
+     * @param port          SMTP-Port
+     * @param user          SMTP-Benutzername
+     * @param pass          SMTP-Passwort
+     * @param fromEmail     Absender-E-Mail
+     * @param toEmail       Empfänger-E-Mail
+     * @param subject       E-Mail Betreff
+     * @param antragId      Antrag-ID
+     * @param reason        Ablehnungsgrund
+     * @param antragSteller Antragsteller
      * @throws MessagingException
      */
     private static void sendRejectionEmail(String host, String port, String user, String pass,
                                            String fromEmail, String toEmail, String subject,
-                                           String antragId, String reason) throws MessagingException {
+                                           String antragId, String reason, String antragSteller, String projektName) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true"); // Falls dein SMTP-Server TLS unterstützt
@@ -110,8 +113,8 @@ public class BudgetRejectionWorker {
         message.setRecipients(
                 Message.RecipientType.TO, InternetAddress.parse(toEmail));
         message.setSubject(subject);
-        message.setText("Sehr geehrte/r Antragsteller/in,\n\n" +
-                "leider müssen wir Ihnen mitteilen, dass Ihr Budgetantrag mit der ID " +
+        message.setText("Sehr geehrte/r " + antragSteller + ",\n\n" +
+                "leider müssen wir Ihnen mitteilen, dass Ihr Budgetantrag zum Projekt " + projektName + " mit der ID " +
                 antragId + " abgelehnt wurde.\n" +
                 "Grund der Ablehnung: " + reason + "\n\n" +
                 "Für Rückfragen stehen wir Ihnen gerne zur Verfügung.\n\n" +

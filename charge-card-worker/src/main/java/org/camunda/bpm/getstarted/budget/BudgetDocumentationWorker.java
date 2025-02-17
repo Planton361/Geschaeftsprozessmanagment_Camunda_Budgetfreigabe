@@ -23,7 +23,7 @@ public class BudgetDocumentationWorker {
                 .lockDuration(10000) // Lock-Dauer in ms
                 .handler((externalTask, externalTaskService) -> {
                     // Prozessvariablen abrufen
-                    String antragId = externalTask.getVariable("antragId");
+                    String antragId = externalTask.getVariable("antragID");
                     String antragsteller = externalTask.getVariable("antragsteller");
 
                     // Sichere Konvertierung von budgetAmount
@@ -77,7 +77,7 @@ public class BudgetDocumentationWorker {
         document.add(new Paragraph("Antrag-ID: " + antragId));
         document.add(new Paragraph("Antragsteller: " + antragsteller));
         document.add(new Paragraph("Betrag: " + budgetAmount + " EUR"));
-        document.add(new Paragraph("Entscheidung: " + decision));
+        document.add(new Paragraph("Entscheidung: genehmigt"));
         document.add(new Paragraph("Datum: " + java.time.LocalDate.now()));
 
         // Dokument schließen

@@ -47,6 +47,13 @@
 				<scope>import</scope>
 			</dependency>
 
+			<dependency>
+				<groupId>com.itextpdf</groupId>
+				<artifactId>io</artifactId>
+				<version>7.2.5</version>
+			</dependency>
+
+
 			<!-- Import Camunda BOM for consistent Camunda versions -->
 			<dependency>
 				<groupId>org.camunda.bpm</groupId>

@@ -22,11 +22,11 @@ public class NotifyApplicantWorker {
     public static void main(String[] args) {
         // SMTP-Konfiguration über Umgebungsvariablen (sicherer Ansatz)
         // SMTP-Daten aus Umgebungsvariablen auslesen
-        String smtpHost = System.getenv("SMTP_HOST") != null ? System.getenv("SMTP_HOST") : "smtp.gmail.com";
-        String smtpPort = System.getenv("SMTP_PORT") != null ? System.getenv("SMTP_PORT") : "587";
-        String smtpUser = System.getenv("SMTP_USER");
-        String smtpPass = System.getenv("SMTP_PASS");
-        String fromEmail = System.getenv("FROM_EMAIL");
+        String smtpHost = "smtp.gmail.com";
+        String smtpPort = "587";
+        String smtpUser = "antonplatonov93@gmail.com";
+        String smtpPass = "kubu ramp evpx imwv";
+        String fromEmail = "antonplatonov93@gmail.com";
 
 
 
@@ -47,7 +47,7 @@ public class NotifyApplicantWorker {
                 .handler((externalTask, externalTaskService) -> {
                     // Prozessvariablen auslesen
                     try {
-                        String antragId = externalTask.getVariable("antragId");
+                        String antragID = externalTask.getVariable("antragID");
                         String antragstellerEmail = externalTask.getVariable("antragstellerEmail");
                         String decision = externalTask.getVariable("budgetDecision");
                         String budgetAmount = externalTask.getVariable("budgetAmount").toString();
@@ -58,7 +58,7 @@ public class NotifyApplicantWorker {
 
                         // Betreff und Nachricht erstellen
                         String subject = "Aktualisierung zu Ihrem Budgetantrag";
-                        String messageContent = generateEmailContent(antragId, budgetAmount, decision);
+                        String messageContent = generateEmailContent(antragID, budgetAmount, decision);
 
                         // E-Mail senden
                         sendEmail(smtpHost, smtpPort, smtpUser, smtpPass, fromEmail, antragstellerEmail, subject, messageContent);
@@ -76,13 +76,13 @@ public class NotifyApplicantWorker {
         LOGGER.info("NotifyApplicantWorker gestartet...");
     }
 
-    private static String generateEmailContent(String antragId, String budgetAmount, String decision) {
-        return "Sehr geehrte/r Antragsteller/in,\n\n" +
+    private static String generateEmailContent(String antragID, String budgetAmount, String antragsteller) {
+        return "Sehr geehrte/r "+ antragsteller + ",\n\n" +
                 "wir möchten Sie über den Status Ihres Budgetantrags informieren.\n\n" +
                 "Antragsdetails:\n" +
-                "- Antrag-ID: " + antragId + "\n" +
+                "- Antrag-ID: " + antragID + "\n" +
                 "- Betrag: " + budgetAmount + " EUR\n" +
-                "- Status: " + decision + "\n\n" +
+                "- Status: genehmigt \n" +
                 "Vielen Dank für Ihr Vertrauen.\n\n" +
                 "Mit freundlichen Grüßen,\n" +
                 "Ihr Budget-Team";
